@@ -1,0 +1,49 @@
+# .gitignore
+node_modules/
+.env
+```
+2) Create a `.env` file in the root of your project and add the following:
+```
+NODE_ENV=development
+```
+3) Create a `config` folder in the root of your project and add a `config.js` file inside it. Add the following:
+```
+module.exports = {
+  development: {
+    port: process.env.PORT || 3000
+  }
+}
+```
+4) Create a `server` folder in the root of your project and add a `server.js` file inside it. Add the following:
+```
+const express = require('express')
+const config = require('../config/config')
+// this is where we will get our environment variables from, so that they can be used throughout the
+// application
+const env = process.env.NODE_ENV || 'development'
+// if no NODE_ENV set then default to devlopment mode
+(this should never happen but just for safety's sake)
+console.log(`Starting server in ${env} mode`) // eslint-disable-line no
+-console.log(`Server running at http://localhost:${config[env].port}`) // eslint-disable-line no-console
+```
+5) In your `package.json` file add the following:
+```
+"scripts": {
+  "start": "node server/server.js"
+}
+```
+6) In your terminal run `npm start` and you should see the following:
+```
+Starting server in development mode
+Server running at http://localhost:3000
+```
+7) In your terminal run `npm install nodemon --save-dev` and then add the following to your `package.json` file:
+```
+"scripts": {
+  "start": "nodemon server/server.js"
+}
+```
+8) In your terminal run `npm start` and you should see the following:
+```
+Starting server in development mode
+Server running at http://localhost:3000
